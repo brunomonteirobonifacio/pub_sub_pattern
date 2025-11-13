@@ -6,6 +6,7 @@ import java.util.Set;
 public class EventBus {
     private static final EventBus INSTANCE = new EventBus();
 
+    // WORKAROUND - Typesafe Homogeneous Container
     private final Map<Class<? extends Event<?>>, Object> listenersByEvent = new HashMap<>();
 
     public static EventBus getInstance() {
@@ -17,7 +18,6 @@ public class EventBus {
         return new EventSubscription(eventType, callback);
     }
 
-    // WORKAROUND FUDIDO
     @SuppressWarnings("unchecked")
     private <T> Set<EventListener<T>> getListeners(Class<? extends Event<T>> eventType) {
         listenersByEvent.putIfAbsent(eventType, new HashSet<>());
